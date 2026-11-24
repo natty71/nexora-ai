@@ -14,7 +14,12 @@ app.use(express.json({ limit: "20kb" }));
 const ai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
-
+console.log(
+  "OPENAI_API_KEY cargada:",
+  Boolean(process.env.OPENAI_API_KEY),
+  "Longitud:",
+  process.env.OPENAI_API_KEY?.length || 0
+);
 app.get("/", (req, res) => {
   res.json({
     name: "Nexora AI",

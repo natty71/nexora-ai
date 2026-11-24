@@ -1,1 +1,146 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexora AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#070e1c;color:white;
+ font-family:Arial,sans-serif;
+ min-height:100vh;
+}
+header{
+ padding:20px;background:#0c1930;
+ border-bottom:1px solid #183c60;
+ display:flex;justify-content:space-between;
+ align-items:center;
+}
+.logo{font-size:23px;font-weight:bold;color:#56d9ff}
+.online{color:#56e5a5;font-size:12px}
+main{max-width:850px;margin:auto;padding:20px}
+.robot{
+ width:145px;height:145px;margin:35px auto 15px;
+ border-radius:50%;
+ background:radial-gradient(circle,#287fc0,#102344);
+ display:grid;place-items:center;
+ font-size:85px;
+ box-shadow:0 0 40px #168bdb66;
+ animation:float 3s infinite ease-in-out;
+}
+@keyframes float{
+ 50%{transform:translateY(-9px)}
+}
+h1{text-align:center;color:#68dcff}
+.subtitle{text-align:center;color:#a6bdd8}
+h3{color:#7cddff;text-align:center;margin-top:35px}
+.features{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:12px;margin:20px 0;
+}
+.feature{
+ padding:18px 8px;background:#112644;
+ border:1px solid #244c72;border-radius:13px;
+ color:white;font-size:14px;cursor:pointer;
+}
+.feature:hover{background:#1a4165}
+.chat{
+ background:#0d1b31;border:1px solid #244767;
+ border-radius:16px;padding:15px;margin-top:25px;
+}
+#messages{height:230px;overflow-y:auto}
+.msg{padding:12px;border-radius:12px;margin:9px 0;
+ white-space:pre-wrap;overflow-wrap:anywhere}
+.bot{background:#172e4b}
+.user{background:#174a70;text-align:right}
+.controls{display:flex;gap:8px;margin-top:12px}
+input{
+ flex:1;min-width:0;background:#081326;
+ border:1px solid #315777;border-radius:10px;
+ padding:13px;color:white;
+}
+.send{
+ border:0;border-radius:10px;
+ padding:12px;background:#36c9f5;
+ color:#061525;font-weight:bold;
+}
+footer{text-align:center;color:#6c86a5;
+ font-size:12px;padding:30px}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">✦ NEXORA AI</div>
+ <div class="online">● EN LÍNEA</div>
+</header>
+
+<main>
+ <div class="robot">🤖</div>
+ <h1>¡Hola! Soy Nexora</h1>
+ <p class="subtitle">
+ Tu asistente de inteligencia artificial.
+ </p>
+ <p class="subtitle">¿Qué deseas hacer hoy?</p>
+
+ <h3>¿Cómo puedo ayudarte?</h3>
+
+ <div class="features">
+  <button class="feature" onclick="select('Quiero conversar contigo')">💬<br>Conversar</button>
+  <button class="feature" onclick="select('Ayúdame con mis tareas escolares')">📚<br>Tareas escolares</button>
+  <button class="feature" onclick="select('Quiero crear una imagen')">🎨<br>Crear imágenes</button>
+  <button class="feature" onclick="select('Quiero traducir un texto')">🌎<br>Traducir idiomas</button>
+  <button class="feature" onclick="select('Ayúdame a resolver un ejercicio')">🧮<br>Resolver ejercicios</button>
+  <button class="feature" onclick="select('Quiero aprender algo nuevo')">🧠<br>Aprender</button>
+ </div>
+
+ <section class="chat">
+  <h3>Chat con Nexora</h3>
+  <div id="messages">
+   <div class="msg bot">
+    🤖 ¡Bienvenido! Soy Nexora AI.
+    Estoy aquí para ayudarte.
+   </div>
+  </div>
+  <div class="controls">
+   <input id="question" placeholder="Escribe tu pregunta...">
+   <button class="send" onclick="send()">➤</button>
+  </div>
+ </section>
+</main>
+
+<footer>NEXORA AI © 2026 | Inteligencia para todos</footer>
+
+<script>
+const input=document.getElementById("question");
+const messages=document.getElementById("messages");
+
+function add(text,type){
+ const div=document.createElement("div");
+ div.className="msg "+type;
+ div.textContent=text;
+ messages.appendChild(div);
+ messages.scrollTop=messages.scrollHeight;
+}
+
+function select(text){
+ input.value=text;
+ input.focus();
+}
+
+function send(){
+ const text=input.value.trim();
+ if(!text)return;
+ add("Tú: "+text,"user");
+ input.value="";
+ add("🤖 ¡Gracias por tu pregunta! Soy Nexora AI. Mi conexión al motor de inteligencia artificial estará disponible próximamente.","bot");
+}
+
+input.addEventListener("keydown",e=>{
+ if(e.key==="Enter")send();
+});
+</script>
+</body>
+    </html>
+

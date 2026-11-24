@@ -128,13 +128,38 @@ function select(text){
  input.focus();
 }
 
-function send(){
+function 
+async function send(){
  const text=input.value.trim();
  if(!text)return;
+
  add("Tú: "+text,"user");
  input.value="";
- add("🤖 ¡Gracias por tu pregunta! Soy Nexora AI. Mi conexión al motor de inteligencia artificial estará disponible próximamente.","bot");
+ add("🤖 Nexora está pensando...","bot");
+
+ const loading=messages.lastElementChild;
+
+ try {
+   const response=await fetch("https://nexora-ai-y209.onrender.com/chat", {
+     method:"POST",
+     headers:{"Content-Type":"application/json"},
+     body:JSON.stringify({message:text})
+   });
+
+   const data=await response.json();
+   loading.remove();
+
+   if(!response.ok) throw new Error(data.error || "Error del servidor");
+
+   add("🤖 "+data.reply,"bot");
+
+ } catch(error){
+   loading.remove();
+   add("🤖 No pude conectarme. Inténtalo otra vez.","bot");
+   console.error(error);
+ }
 }
+ 
 
 input.addEventListener("keydown",e=>{
  if(e.key==="Enter")send();
